@@ -55,6 +55,7 @@ class Dir_ {
   
   int next(int dir) {return next(dir, 1);}
   int prev(int dir) {return next(dir, CNT - 1);}
+  int perpendicular(int dir) {return next(dir, 2);}
   
   float angle(int dir) {
     return PI * 0.25 * (float) dir;
@@ -88,6 +89,7 @@ abstract class ICellObject {
   abstract void drawFg(int x, int y, int h, int w, int dir);
   
   boolean isTurnable = false;
+  boolean isWithFlare = false;
 }
 
 class EmptyCell extends ICellObject {
@@ -106,7 +108,7 @@ class EmptyCell extends ICellObject {
 EmptyCell EMPTYCELL = new EmptyCell();
 
 class Cell extends ICell {
-  Ray[][] emit = new Ray[][]{new Ray[DIR.CNT], new Ray[DIR.CNT]}; //<>//
+  Ray[][] emit = new Ray[][]{new Ray[DIR.CNT], new Ray[DIR.CNT]};
   
   int ectr = 0;
   int dir = DIR.UP;
@@ -167,8 +169,11 @@ final NoCell NOCELL = new NoCell();
 class Grid extends IGrid {
   int szx, szy;
   Cell[][] cells;
+  boolean flares[];
   
   PImage bgImg = loadImage(location + "bg-com-0.png");
+  PImage flareImg = loadImage(location + "flare.png");
+  PImage highlightImg = loadImage(location + "turn-cursor.png");
   
   Grid(int szx_, int szy_) {
     szx = szx_; szy = szy_;
@@ -183,6 +188,8 @@ class Grid extends IGrid {
         cells[i][j].clearEmit();
       }
     }
+    
+    flares = new boolean[szx*szy];
   }
   
   ICell getCell(int x, int y) {
@@ -207,6 +214,10 @@ class Grid extends IGrid {
   
   void drawRays(int x, int y, int cellsize) {
     int hcsz = cellsize >> 1;
+    
+    RR.prepare();
+    
+    for (int i = 0; i < szx*szy; ++i) flares[i] = false;
 
     for (int i = 0; i < szx; ++i) {
       int cellcx = x + cellsize * i + hcsz;
@@ -214,17 +225,35 @@ class Grid extends IGrid {
       for (int j = 0; j < szy; ++j) {
         int cellcy = y + cellsize * j + hcsz;
         ICell c = getCell(i, j);
+        boolean flare = false;
         
         for (int dir = 0; dir < DIR.CNT; ++dir) {
           int endx = cellcx + DIR.h[dir] * cellsize;
           int endy = cellcy + DIR.v[dir] * cellsize;
-          Ray e = c.getEmit(dir); //<>//
+          int pdir = DIR.perpendicular(dir);
+          Ray e = c.getEmit(dir);
           
           if (e.r == 0 && e.g == 0 && e.b == 0) continue;
           
           stroke(e.r*16, e.g*16, e.b*16);
           
           line(cellcx, cellcy, endx, endy);
+          
+          RR.drawRay(e, cellcx, cellcy, endx, endy, DIR.h[pdir], DIR.v[pdir]);
+          flares[i + j * szx] = true;
+        }
+      }
+    }
+    
+    for (int i = 0; i < szx; ++i) {
+      int cellcx = x + cellsize * i + hcsz;
+      
+      for (int j = 0; j < szy; ++j) {
+        int cellcy = y + cellsize * j + hcsz;
+        ICell c = getCell(i, j);
+        
+        if(flares[i + szx*j] && cells[i][j].obj.isWithFlare) {
+          image(flareImg, cellcx - hcsz, cellcy - hcsz, cellsize, cellsize);
         }
       }
     }
@@ -263,8 +292,20 @@ class Grid extends IGrid {
     
     if (!cells[xx][yy].obj.isTurnable) return;
     
-    stroke(255, 128, 128);
-    rect(x+xx*cs, y+yy*cs, cs, cs);
+    //stroke(255, 128, 128);
+    //rect(x+xx*cs, y+yy*cs, cs, cs);
+    
+    int hcs = cs >> 1;
+    int cx = x+xx*cs+hcs;
+    int cy = y+yy*cs+hcs;
+    
+    pushMatrix();
+    translate(cx, cy);
+    rotate(0.002 * (float)millis());
+    scale(1. + .05 * sin(0.001 * (float)millis()));
+    translate(-cs, -cs);
+    image(highlightImg, 0,0, 2*cs, 2*cs);
+    popMatrix();
   }
   
   void draw(int x, int y, int cellsize) {

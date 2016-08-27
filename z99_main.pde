@@ -20,9 +20,11 @@ void levelDone() {
 }
 
 void setup() {
-  size(1366, 768);
+  size(1366, 768, P2D);
   
   loadSprites();
+  
+  RR.pg = createGraphics(RR.TX, RR.TY, P2D);
   
   //grid = new Grid(10, 10);
   //grid.cells[5][5].obj = EMITTERCELL;
@@ -39,7 +41,7 @@ void draw() {
   
   if (playerReady) {
     grid.update();
-    grid.draw(10, 10, 64);
+    grid.draw(50, 50, 64);
     if (expectationDone) {
       levelDone();
       expectationDone = false;
@@ -51,7 +53,7 @@ void draw() {
 
 void mouseClicked() {
   if (playerReady) {
-    grid.turnCell(10, 10, 64);
+    grid.turnCell(50, 50, 64);
   } else {
     playerReady = true;
   }

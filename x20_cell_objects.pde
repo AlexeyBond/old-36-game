@@ -60,6 +60,7 @@ WallCell WALLCELL = new WallCell();
 
 class MirrorCell extends SpriteCell {
   {isTurnable = true;}
+  {isWithFlare = true;}
   
   void update(ICell cell) {
     reflect(cell, cell.getDir());
@@ -81,6 +82,7 @@ MirrorCell MIRRORCELL = new MirrorCell();
 
 class PrismCell extends SpriteCell {
   {isTurnable = true;}
+  {isWithFlare = true;}
   
   void update(ICell cell) {
     int cd = cell.getDir();
