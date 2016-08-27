@@ -1,3 +1,4 @@
+
 Grid grid = null;
 
 String location = "/home/a_bond/p3sb/z99_main/data/";
@@ -22,6 +23,7 @@ void levelDone() {
 void setup() {
   size(1366, 768, P2D);
   
+  setupSound();
   loadSprites();
   
   RR.pg = createGraphics(RR.TX, RR.TY, P2D);

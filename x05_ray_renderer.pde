@@ -5,6 +5,7 @@ class RayRenderer {
   final int HTY = TY >> 1;
   PGraphics pg = null;
   float[] f = new float[HTX];
+  float[] an = new float[HTX];
 
   void prepare() {
     float hty = TY >> 1;
@@ -13,8 +14,10 @@ class RayRenderer {
     
     float kt = sin(.005 * (float)millis());
     
+    getAudioNoise(an);
+    
     for (int i = 0; i < HTX; ++i) {
-      float n = sin(((float)i) + (float)millis() * .01);
+      float n = sin(((float)i) - (float)millis() * .01) * .5 + an[i] * 2.;
       float k_ = 1. - (((float)min(i, HTX-i)) / (float)HTX);
       float k = 1. - k_ * k_;
       f[i] = kt * k * n * 3.;
@@ -51,7 +54,7 @@ class RayRenderer {
     noStroke();
     texture(pg);
     textureMode(NORMAL);
-    fill(ray.r * 16, ray.g * 16, ray.b * 16);
+    tint(ray.r * 16, ray.g * 16, ray.b * 16);
     vertex((float)x1 + dx-ty, (float)y1 + dy+tx*2, 0, 1.);
     vertex((float)x1 - dx-ty, (float)y1 - dy+tx*2, 0, 0);
     vertex((float)x2 - dx, (float)y2 - dy, 1., 0);

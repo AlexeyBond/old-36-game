@@ -9,7 +9,7 @@ class Ray {
   
   int fade_(int x) {
     if (x == 0) return x;
-    return x - 1;
+    return x - 2;
   }
   
   Ray fade() {return new Ray(fade_(r), fade_(g), fade_(b));}
@@ -217,6 +217,8 @@ class Grid extends IGrid {
     
     RR.prepare();
     
+    blendMode(ADD);
+    
     for (int i = 0; i < szx*szy; ++i) flares[i] = false;
 
     for (int i = 0; i < szx; ++i) {
@@ -235,15 +237,17 @@ class Grid extends IGrid {
           
           if (e.r == 0 && e.g == 0 && e.b == 0) continue;
           
-          stroke(e.r*16, e.g*16, e.b*16);
+          //stroke(e.r*16, e.g*16, e.b*16);
           
-          line(cellcx, cellcy, endx, endy);
+          //line(cellcx, cellcy, endx, endy);
           
           RR.drawRay(e, cellcx, cellcy, endx, endy, DIR.h[pdir], DIR.v[pdir]);
           flares[i + j * szx] = true;
         }
       }
     }
+
+    noTint();
     
     for (int i = 0; i < szx; ++i) {
       int cellcx = x + cellsize * i + hcsz;
@@ -257,6 +261,8 @@ class Grid extends IGrid {
         }
       }
     }
+    
+    blendMode(BLEND);
   }
   
   int getMouseCellX(int x, int y, int cs) {
