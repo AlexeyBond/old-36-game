@@ -84,15 +84,15 @@ class PrismCell extends SpriteCell {
   
   void update(ICell cell) {
     int cd = cell.getDir();
-    Ray src = cell.getReceive(cd).fade();
+    Ray src = cell.getReceive(DIR.reverse(cd)).fade();
     
     Ray R = new Ray(src.r, 0, 0);
     Ray G = new Ray(0, src.g, 0);
     Ray B = new Ray(0, 0, src.b);
     
-    cell.setEmit(DIR.reverse(cd), G);
-    cell.setEmit(DIR.next(DIR.reverse(cd)), R);
-    cell.setEmit(DIR.prev(DIR.reverse(cd)), B);
+    cell.setEmit(cd, G);
+    cell.setEmit(DIR.next(cd), R);
+    cell.setEmit(DIR.prev(cd), B);
   };
 }
 

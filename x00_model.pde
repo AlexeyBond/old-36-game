@@ -39,14 +39,14 @@ class Dir_ {
     h[LEFT] = -1;
     h[UP_LEFT] = -1;
     
-    v[UP] = 1;
-    v[UP_RIGHT] = 1;
+    v[UP] = -1;
+    v[UP_RIGHT] = -1;
     v[RIGHT] = 0;
-    v[DN_RIGHT] = -1;
-    v[DN] = -1;
-    v[DN_LEFT] = -1;
+    v[DN_RIGHT] = 1;
+    v[DN] = 1;
+    v[DN_LEFT] = 1;
     v[LEFT] = 0;
-    v[UP_LEFT] = 1;
+    v[UP_LEFT] = -1;
   }
   
   int next(int dir, int cnt) {return (dir + cnt) % CNT;}
@@ -57,7 +57,7 @@ class Dir_ {
   int prev(int dir) {return next(dir, CNT - 1);}
   
   float angle(int dir) {
-    return PI * -0.25 * (float) dir;
+    return PI * 0.25 * (float) dir;
   }
 }
 
