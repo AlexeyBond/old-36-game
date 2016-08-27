@@ -38,6 +38,8 @@ abstract class SpriteCell extends ICellObject {
 }
 
 class EmitterCell extends SpriteCell {
+  {isTurnable = true;}
+  
   void update(ICell cell) {
     cell.setEmit(cell.getDir(), LIGHT);
   };
@@ -57,6 +59,8 @@ class WallCell extends SpriteCell {
 WallCell WALLCELL = new WallCell();
 
 class MirrorCell extends SpriteCell {
+  {isTurnable = true;}
+  
   void update(ICell cell) {
     reflect(cell, cell.getDir());
     reflect(cell, DIR.reverse(cell.getDir()));
@@ -76,6 +80,8 @@ class MirrorCell extends SpriteCell {
 MirrorCell MIRRORCELL = new MirrorCell();
 
 class PrismCell extends SpriteCell {
+  {isTurnable = true;}
+  
   void update(ICell cell) {
     int cd = cell.getDir();
     Ray src = cell.getReceive(cd).fade();

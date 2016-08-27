@@ -86,6 +86,8 @@ abstract class ICellObject {
   
   abstract void drawBg(int x, int y, int h, int w, int dir);
   abstract void drawFg(int x, int y, int h, int w, int dir);
+  
+  boolean isTurnable = false;
 }
 
 class EmptyCell extends ICellObject {
@@ -229,14 +231,14 @@ class Grid extends IGrid {
   }
   
   int getMouseCellX(int x, int y, int cs) {
-    if (mouseX < x || mouseX > x + cs * szx)
+    if (mouseX < x || mouseX >= x + cs * szx)
       return -1;
 
     return (mouseX - x) / cs;
   }
   
   int getMouseCellY(int x, int y, int cs) {
-    if (mouseY < y || mouseY > y + cs * szy)
+    if (mouseY < y || mouseY >= y + cs * szy)
       return -1;
 
     return (mouseY - y) / cs;
@@ -248,6 +250,8 @@ class Grid extends IGrid {
     
     if (xx < 0 || yy < 0) return;
     
+    if (!cells[xx][yy].obj.isTurnable) return;
+    
     cells[xx][yy].dir = DIR.next(cells[xx][yy].dir, 1);
   }
   
@@ -256,6 +260,8 @@ class Grid extends IGrid {
     int yy = getMouseCellY(x,y,cs);
     
     if (xx < 0 || yy < 0) return;
+    
+    if (!cells[xx][yy].obj.isTurnable) return;
     
     stroke(255, 128, 128);
     rect(x+xx*cs, y+yy*cs, cs, cs);
