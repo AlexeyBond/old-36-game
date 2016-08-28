@@ -116,7 +116,7 @@ class ExpectorCell extends SpriteCell {
     super.drawFg(x,y,h,w,dir);
     
     if (arrowImg != null) {
-      float aof = 30. * (1. + sin(.01 * (float)millis()));
+      float aof = 30. * (1. + sin(.005 * (float)millis()));
       
       image(arrowImg, x, y-h-aof, w, h);
     }

@@ -2,22 +2,22 @@
 Grid grid = null;
 
 String location = "/home/a_bond/p3sb/z99_main/data/";
-int currentLevel = 0;
-boolean playerReady = false;
+int currentLevel = -1;
+boolean playerReady = true;
 boolean anyLevelDone = false;
 
 void startLevel() {
-  if (currentLevel == levels.length) {
+  if (++currentLevel >= levels.length) {
     currentLevel = 0;
   }
   grid = initLevel(levels[currentLevel]);
+  expectationDone = false;
 }
 
 void levelDone() {
-  currentLevel++;
   playerReady = false;
   anyLevelDone = true;
-  startLevel();
+  //startLevel();
 }
 
 void setup() {
@@ -31,18 +31,49 @@ void setup() {
   startLevel();
 }
 
+int x, y, cs;
+
 void draw() {
-  background(128);
+  background(0);
   fill(0,0,0,0);
   stroke(255);
   
-  if (playerReady) {
+  if (grid != null) {
+    {
+      float wcss = grid.szx + 2;
+      float hcss = grid.szy + 2;
+      
+      float wscr = width;
+      float hscr = height;
+      
+      if ((wcss/hcss) < (wscr/hscr)) {
+        cs = (int)(hscr/hcss);
+      } else {
+        cs = (int)(wscr/wcss);
+      }
+      
+      x = cs + (int)(0.5 * (wscr - wcss * (float)cs));
+      y = cs + (int)(0.5 * (hscr - hcss * (float)cs));
+    }
+    
     grid.update();
-    grid.draw(50, 50, 64);
+    grid.draw(x, y, cs);
     if (expectationDone) {
       levelDone();
       expectationDone = false;
     }
+    
+    String msg;
+    
+    if (!playerReady) {
+      msg = String.format("Click to start level %s", (currentLevel+1) % levels.length);
+    } else {
+      msg = String.format("Level %s", currentLevel);
+    }
+    
+    textSize((.8 * (float)cs));
+    fill(255);
+    text(msg, 0, (.9 * (float)cs));
   } else {
     
   }
@@ -50,8 +81,9 @@ void draw() {
 
 void mouseClicked() {
   if (playerReady) {
-    grid.turnCell(50, 50, 64);
+    grid.turnCell(x, y, cs);
   } else {
+    startLevel();
     playerReady = true;
   }
 }
