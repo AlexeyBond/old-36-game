@@ -4,7 +4,8 @@ void loadSprites() {
   MIRRORCELL.bgimg = loadImage(location+"mirror_bg.png");
   PRISMCELL.img = loadImage(location+"prism.png");
   PRISMCELL.bgimg = loadImage(location+"mirror_bg.png");
-  ANYEXPECTORCELL.img = loadImage(location+"target.png");
+  ANYEXPECTORCELL.bgimg = loadImage(location+"mirror_bg.png");
+  ANYEXPECTORCELL.img = loadImage(location+"expector.png");
   WALLCELL.img = loadImage(location+"wall.png");
   EMITTERCELL.bgimg = loadImage(location+"mirror_bg.png");
   EMITTERCELL.img = loadImage(location+"emitter.png");
