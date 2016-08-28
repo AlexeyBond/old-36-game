@@ -17,10 +17,11 @@ class RayRenderer {
     getAudioNoise(an);
     
     for (int i = 0; i < HTX; ++i) {
-      float n = sin(((float)i) - (float)millis() * .01) * .5 + an[i] * 2.;
+      float n = sin(((float)i) - (float)millis() * .01) * .5;
+      float na = an[i] * 2.;
       float k_ = 1. - (((float)min(i, HTX-i)) / (float)HTX);
       float k = 1. - k_ * k_;
-      f[i] = kt * k * n * 3.;
+      f[i] = k * (kt * n + na) * 3.;
     }
     
     pg.noFill();

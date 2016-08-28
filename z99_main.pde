@@ -28,11 +28,6 @@ void setup() {
   
   RR.pg = createGraphics(RR.TX, RR.TY, P2D);
   
-  //grid = new Grid(10, 10);
-  //grid.cells[5][5].obj = EMITTERCELL;
-  //grid.cells[5][3].obj = PRISMCELL;
-  //grid.cells[3][3].obj = MIRRORCELL;
-  
   startLevel();
 }
 
