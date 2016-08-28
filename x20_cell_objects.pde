@@ -6,6 +6,7 @@ void loadSprites() {
   PRISMCELL.bgimg = loadImage(location+"mirror_bg.png");
   ANYEXPECTORCELL.bgimg = loadImage(location+"mirror_bg.png");
   ANYEXPECTORCELL.img = loadImage(location+"expector.png");
+  ANYEXPECTORCELL.arrowImg = loadImage(location+"arrow-target.png");
   WALLCELL.img = loadImage(location+"wall.png");
   EMITTERCELL.bgimg = loadImage(location+"mirror_bg.png");
   EMITTERCELL.img = loadImage(location+"emitter.png");
@@ -105,9 +106,20 @@ boolean expectationDone;
 
 class ExpectorCell extends SpriteCell {
   int r, g, b;
+  PImage arrowImg;
   
   ExpectorCell(int r_, int g_, int b_) {
     r= r_; g = g_; b = b_;
+  }
+  
+  void drawFg(int x, int y, int h, int w, int dir) {
+    super.drawFg(x,y,h,w,dir);
+    
+    if (arrowImg != null) {
+      float aof = 30. * (1. + sin(.01 * (float)millis()));
+      
+      image(arrowImg, x, y-h-aof, w, h);
+    }
   }
   
   int match(int e, int r) {
