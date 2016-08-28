@@ -7,7 +7,8 @@ void loadSprites() {
   ANYEXPECTORCELL.bgimg = loadImage(location+"mirror_bg.png");
   ANYEXPECTORCELL.img = loadImage(location+"expector.png");
   ANYEXPECTORCELL.arrowImg = loadImage(location+"arrow-target.png");
-  WALLCELL.img = loadImage(location+"wall.png");
+  WALLCELL.bgimg = loadImage(location+"wall-v2-bg.png");
+  WALLCELL.img = loadImage(location+"wall-v2-fg.png");
   EMITTERCELL.bgimg = loadImage(location+"mirror_bg.png");
   EMITTERCELL.img = loadImage(location+"emitter.png");
 }

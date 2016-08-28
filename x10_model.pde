@@ -171,7 +171,7 @@ class Grid extends IGrid {
   Cell[][] cells;
   boolean flares[];
   
-  PImage bgImg = loadImage(location + "bg-com-0.png");
+  PImage bgImg = loadImage(location + "bg-com-1.png");
   PImage flareImg = loadImage(location + "flare.png");
   PImage highlightImg = loadImage(location + "turn-cursor.png");
   
