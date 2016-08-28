@@ -9,7 +9,7 @@ class Ray {
   
   int fade_(int x) {
     if (x == 0) return x;
-    return x - 2;
+    return x - 1;
   }
   
   Ray fade() {return new Ray(fade_(r), fade_(g), fade_(b));}
