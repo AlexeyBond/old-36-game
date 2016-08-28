@@ -21,7 +21,8 @@ void levelDone() {
 }
 
 void setup() {
-  size(1366, 768, P2D);
+  //size(1366, 768, P2D);
+  fullScreen(P2D);
   
   setupSound();
   loadSprites();
