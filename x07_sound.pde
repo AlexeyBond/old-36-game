@@ -25,7 +25,7 @@ void setupSound() {
     
     //ac.out.addInput(comb);
 
-    println("no. of inputs:  " + ac.getAudioInput().getOuts()); 
+    //println("no. of inputs:  " + ac.getAudioInput().getOuts()); 
 
     //test get some FFT power spectrum data form the 
     //sfs = new ShortFrameSegmenter(ac);
@@ -35,7 +35,15 @@ void setupSound() {
     //ps = new PowerSpectrum();
     //fft.addListener(ps);
     //ac.out.addDependent(sfs);
+    
+    Sample sample = SampleManager.sample(location + "0xB-00.mp3");
+    SamplePlayer splayer = new SamplePlayer(ac, sample);
+    splayer.setKillOnEnd(false);
+    splayer.setLoopStart(new Static(ac, 0));
+    splayer.setLoopEnd(new Static(ac, (float)sample.getLength()));
+    splayer.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
 
+    ac.out.addInput(splayer);
     ac.start();
 }
 
@@ -43,5 +51,5 @@ void getAudioNoise(float[] out) {
   if (null == ac) return;
   int bsz = ac.getBufferSize();
   for (int i = 0; i < out.length && i*4 < bsz; ++i)
-    out[i] = ac.out.getValue(0, i*4);
+    out[(out.length-1)-i] = ac.out.getValue(0, i*4);
 }
