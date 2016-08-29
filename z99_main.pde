@@ -9,8 +9,10 @@ boolean shouldStartNextLevel = false;
 
 void startLevel() {
   if (++currentLevel >= levels.length) {
-    currentLevel = 0;
+    grid = null;
+    return;
   }
+
   grid = initLevel(levels[currentLevel]);
   expectationDone = false;
 }
@@ -64,19 +66,37 @@ void draw() {
       startLevel();
       shouldStartNextLevel = false;
     }
-
-    String msg = String.format(" Level %s", currentLevel);
     
-    textSize((.8 * (float)cs));
-    fill(255);
-    text(msg, 0, (.9 * (float)cs));
-    
-    if ((messages[currentLevel] != null && !expectationDone) || (successMessages[currentLevel] != null && expectationDone)) {
-      textSize((.4 * (float)cs));
-      text(expectationDone?successMessages[currentLevel]:messages[currentLevel], 0, height - (.5 * (float)cs));
+    if (grid != null) {
+      String msg = String.format(" Level %s", currentLevel);
+      
+      textSize((.8 * (float)cs));
+      fill(255);
+      text(msg, 0, (.9 * (float)cs));
+      
+      if ((messages[currentLevel] != null && !expectationDone) || (successMessages[currentLevel] != null && expectationDone)) {
+        textSize((.4 * (float)cs));
+        text(expectationDone?successMessages[currentLevel]:messages[currentLevel], 0, height - (.5 * (float)cs));
+      }
     }
   } else {
-    
+    float ts = .02 * (float)width;
+    fill(255);
+    textSize(3*ts);
+    textAlign(CENTER);
+    text("You win", ts, 2*ts, width - 2.*ts, height-2.*ts);
+    fill(64);
+    textSize(ts);
+    textAlign(CENTER);
+    text("I have no artist to draw a beutyful background for this screen :(", ts, 6*ts, width - 2.*ts, height-2.*ts);
+    fill(128);
+    textSize(ts);
+    textAlign(CENTER);
+    text("Thanks for playing. Now press [ESC].", ts, 8*ts, width - 2.*ts, height-2.*ts);
+    fill(200);
+    textSize(2*ts);
+    textAlign(RIGHT);
+    text("AB", ts, 12*ts, width - 2.*ts, height-2.*ts);
   }
 }
 
