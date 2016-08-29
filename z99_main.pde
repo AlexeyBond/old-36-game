@@ -1,7 +1,8 @@
 
 Grid grid = null;
 
-String location = "/home/a_bond/p3sb/z99_main/data/";
+//String location = "/home/a_bond/p3sb/z99_main/data/";
+String location = "./data/"/* + File.separator*/;
 int currentLevel = -1;
 boolean playerReady = true;
 boolean anyLevelDone = false;
