@@ -5,6 +5,7 @@ String location = "/home/a_bond/p3sb/z99_main/data/";
 int currentLevel = -1;
 boolean playerReady = true;
 boolean anyLevelDone = false;
+boolean shouldStartNextLevel = false;
 
 void startLevel() {
   if (++currentLevel >= levels.length) {
@@ -59,18 +60,12 @@ void draw() {
     
     grid.update();
     grid.draw(x, y, cs);
-    if (expectationDone) {
-      levelDone();
-      expectationDone = false;
+    if (shouldStartNextLevel) {
+      startLevel();
+      shouldStartNextLevel = false;
     }
-    
-    String msg;
-    
-    if (!playerReady) {
-      msg = String.format("Click to start level %s", (currentLevel+1) % levels.length);
-    } else {
-      msg = String.format("Level %s", currentLevel);
-    }
+
+    String msg = String.format("Level %s", currentLevel);
     
     textSize((.8 * (float)cs));
     fill(255);
@@ -81,10 +76,7 @@ void draw() {
 }
 
 void mouseClicked() {
-  if (playerReady) {
+  if (grid != null) {
     grid.turnCell(x, y, cs);
-  } else {
-    startLevel();
-    playerReady = true;
   }
 }

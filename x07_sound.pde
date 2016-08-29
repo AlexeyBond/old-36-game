@@ -8,22 +8,22 @@ PowerSpectrum ps;
 void setupSound() {
       ac = new AudioContext(new AudioServerIO.JavaSound(),1024,AudioContext.defaultAudioFormat(2,2));
 
-    UGen microphoneIn = ac.getAudioInput();
-    Gain g = new Gain(ac, 1, 0.5f);
-    g.addInput(microphoneIn);
+    //UGen microphoneIn = ac.getAudioInput();
+    //Gain g = new Gain(ac, 1, 0.5f);
+    //g.addInput(microphoneIn);
     
-    Compressor comp = new Compressor(ac).setThreshold(.2).setKnee(.1);
+    //Compressor comp = new Compressor(ac).setThreshold(.2).setKnee(.1);
     
-    comp.addInput(g);
+    //comp.addInput(g);
     
-    CombFilter comb = new CombFilter(ac, (int)ac.msToSamples(1000));
+    //CombFilter comb = new CombFilter(ac, (int)ac.msToSamples(1000));
     
-    comb.setParams(
-      (int)ac.msToSamples(500),
-      1.0, .0, .5);
-    comb.addInput(comp);
+    //comb.setParams(
+    //  (int)ac.msToSamples(500),
+    //  1.0, .0, .5);
+    //comb.addInput(comp);
     
-    ac.out.addInput(comb);
+    //ac.out.addInput(comb);
 
     println("no. of inputs:  " + ac.getAudioInput().getOuts()); 
 

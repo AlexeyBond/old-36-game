@@ -7,6 +7,9 @@ void loadSprites() {
   ANYEXPECTORCELL.bgimg = loadImage(location+"mirror_bg.png");
   ANYEXPECTORCELL.img = loadImage(location+"expector.png");
   ANYEXPECTORCELL.arrowImg = loadImage(location+"arrow-target.png");
+  ANYEXPECTORCELL.gearImg = loadImage(location+"expector-gear.png");
+  ANYEXPECTORCELL.successImg = loadImage(location+"expector-success.png");
+  ANYEXPECTORCELL.failImg = loadImage(location+"expector-fail.png");
   WALLCELL.bgimg = loadImage(location+"wall-v2-bg.png");
   WALLCELL.img = loadImage(location+"wall-v2-fg.png");
   EMITTERCELL.bgimg = loadImage(location+"mirror_bg.png");
@@ -28,11 +31,11 @@ abstract class SpriteCell extends ICellObject {
   };
   
   void drawImg(PImage im, int x, int y, int h, int w, float a) {
-    int hh = h / 2;
-    int hw = w / 2;
+    float hh = .5 * (float)h;
+    float hw = .5 * (float)w;
     
     pushMatrix();
-    translate(hw + x, hh + y);
+    translate(hw + (float)x, hh + (float)y);
     rotate(a);
     translate(-hw, -hh);
     image(im, 0, 0, h, w);
@@ -108,6 +111,10 @@ boolean expectationDone;
 class ExpectorCell extends SpriteCell {
   int r, g, b;
   PImage arrowImg;
+  PImage gearImg;
+  PImage failImg, successImg;
+  
+  int doneDir;
   
   ExpectorCell(int r_, int g_, int b_) {
     r= r_; g = g_; b = b_;
@@ -116,7 +123,10 @@ class ExpectorCell extends SpriteCell {
   void drawFg(int x, int y, int h, int w, int dir) {
     super.drawFg(x,y,h,w,dir);
     
-    if (arrowImg != null) {
+    drawImg(gearImg, x,y,h,w, (expectationDone?1.:-1.)*.001*(float)millis());
+    drawImg(expectationDone?successImg:failImg, x,y,h,w,0);
+    
+    if (arrowImg != null && (currentLevel <= 2 || expectationDone)) {
       float aof = 30. * (1. + sin(.005 * (float)millis()));
       
       image(arrowImg, x, y-h-aof, w, h);
@@ -128,6 +138,11 @@ class ExpectorCell extends SpriteCell {
   }
   
   void update(ICell cell) {
+    if (expectationDone && (doneDir != cell.getDir())) {
+      shouldStartNextLevel = true;
+      return;
+    }
+    
     for (int i = 0; i < DIR.CNT; ++i) {
       Ray rc = cell.getReceive(i);
       
@@ -135,9 +150,14 @@ class ExpectorCell extends SpriteCell {
       
       if (x > 0) {
         expectationDone = true;
+        isTurnable = true;
+        doneDir = cell.getDir();
         return;
       }
     }
+
+    expectationDone = false;
+    isTurnable = true;
   }
 }
 
