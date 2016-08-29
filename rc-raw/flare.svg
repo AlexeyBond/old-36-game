@@ -15,7 +15,10 @@
    id="svg3940"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Новый документ 7">
+   sodipodi:docname="flare.svg"
+   inkscape:export-filename="/home/a_bond/p3sb/z99_main/data/flare.png"
+   inkscape:export-xdpi="240"
+   inkscape:export-ydpi="240">
   <defs
      id="defs3942">
     <linearGradient
@@ -53,8 +56,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="9.8994949"
-     inkscape:cx="8.8774042"
-     inkscape:cy="22.326324"
+     inkscape:cx="8.8755748"
+     inkscape:cy="26.357776"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
@@ -84,18 +87,6 @@
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
-    <path
-       sodipodi:type="arc"
-       style="fill:#bcffff;fill-opacity:0.23045265;fill-rule:nonzero;stroke:#d0fffc;stroke-width:0.053;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.06172838;stroke-dasharray:none;stroke-dashoffset:0"
-       id="path3954"
-       sodipodi:cx="24"
-       sodipodi:cy="24"
-       sodipodi:rx="23"
-       sodipodi:ry="23"
-       d="M 47,24 A 23,23 0 0 1 24.052765,46.999939"
-       sodipodi:start="0"
-       sodipodi:end="1.5685022"
-       sodipodi:open="true" />
     <path
        sodipodi:type="arc"
        style="fill:url(#radialGradient4482);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.05300000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"

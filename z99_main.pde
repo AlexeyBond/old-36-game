@@ -65,11 +65,16 @@ void draw() {
       shouldStartNextLevel = false;
     }
 
-    String msg = String.format("Level %s", currentLevel);
+    String msg = String.format(" Level %s", currentLevel);
     
     textSize((.8 * (float)cs));
     fill(255);
     text(msg, 0, (.9 * (float)cs));
+    
+    if (messages[currentLevel] != null) {
+      textSize((.4 * (float)cs));
+      text(messages[currentLevel], 0, height - (.5 * (float)cs));
+    }
   } else {
     
   }

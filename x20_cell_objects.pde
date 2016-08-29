@@ -121,8 +121,9 @@ class ExpectorCell extends SpriteCell {
   }
   
   void drawFg(int x, int y, int h, int w, int dir) {
-    super.drawFg(x,y,h,w,dir);
+    //super.drawFg(x,y,h,w,dir);
     
+    drawImg(img, x,y,h,w,0);
     drawImg(gearImg, x,y,h,w, (expectationDone?1.:-1.)*.001*(float)millis());
     drawImg(expectationDone?successImg:failImg, x,y,h,w,0);
     
@@ -157,7 +158,7 @@ class ExpectorCell extends SpriteCell {
     }
 
     expectationDone = false;
-    isTurnable = true;
+    isTurnable = false;
   }
 }
 
