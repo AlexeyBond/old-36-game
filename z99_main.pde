@@ -71,9 +71,9 @@ void draw() {
     fill(255);
     text(msg, 0, (.9 * (float)cs));
     
-    if (messages[currentLevel] != null) {
+    if ((messages[currentLevel] != null && !expectationDone) || (successMessages[currentLevel] != null && expectationDone)) {
       textSize((.4 * (float)cs));
-      text(messages[currentLevel], 0, height - (.5 * (float)cs));
+      text(expectationDone?successMessages[currentLevel]:messages[currentLevel], 0, height - (.5 * (float)cs));
     }
   } else {
     
